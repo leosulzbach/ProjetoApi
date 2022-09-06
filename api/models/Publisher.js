@@ -1,9 +1,10 @@
 const { DataTypes, Model, Sequelize } = require('sequelize');
 const db = require('../db/conexao');
+const City = require('./City');
 
-class Publishing extends Model { };
+class Publisher extends Model { };
 
-Publishing.init({
+Publisher.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -25,7 +26,11 @@ Publishing.init({
 }, {
   sequelize: db,
   tableName: 'publishers',
-  modelName: 'Publishing'
+  modelName: 'Publisher'
 });
-Publishing.sync()
-module.exports = Publishing;
+
+City.hasMany(Publisher);
+Publisher.hasMany(City);
+
+Publisher.sync()
+module.exports = Publisher;

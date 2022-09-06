@@ -4,48 +4,7 @@ const StateModel = require('../models/State');
 class StateController {
 
   index = async (req, res, next) => {
-    const params = req.query;
-    const limit = params.limit || 100;
-    const page = params.page || 1;
-    const offset = (page - 1) * limit;
-    const sort = params.sort || 'id';
-    const order = params.order || 'ASC';
-    const where = {};
-
-    if (params.name) {
-      where.name = {
-        [Op.iLike]: `%${params.name}%`
-      };
-    }
-
-    if (params.email) {
-      where.email = {
-        [Op.iLike]: `%${params.email}%`
-      };
-    }
-
-    if (params.min_age) {
-      where.age = {
-        [Op.gte]: params.min_age
-      };
-    }
-
-    if (params.max_age) {
-      if (! where.age) {
-        where.age = {};
-      }
-      where.age[Op.lte] = params.max_age;
-    }
-
-    if (params.sex) {
-      where.sex = params.sex;
-    }
-
     const states = await StateModel.findAll({
-      where: where,
-      limit: limit,
-      offset: offset,
-      order: [ [sort, order] ]
     });
     res.json(states);
   }
@@ -99,23 +58,23 @@ class StateController {
       state[attribute] = data[attribute];
     }
 
-    if (await this._checkIfEmailExists(state.email, id)) {
-      throw new Error(`The user with mail address "${state.email}" already exists.`);
+    if (await this._checkIfProvinceExists(state.province, id)) {
+      throw new Error(`The state with province "${state.province}" already exists.`);
     }
 
     return state;
   }
 
-  _checkIfEmailExists = async (email, id) => {
+  _checkIfProvinceExists = async (province, id) => {
     const where = {
-      email: email
+      province: province
     };
 
     if (id) {
       where.id = { [Op.ne]: id }; // WHERE id != id
     }
 
-    const count = await UserModel.count({
+    const count = await StateModel.count({
       where: where
     });
 

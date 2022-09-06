@@ -1,5 +1,7 @@
 const { DataTypes, Model } = require('sequelize');
 const db = require('../db/conexao');
+const Publisher = require('./Publisher');
+const Categorie = require('./Categorie');
 
 class Book extends Model { };
 
@@ -25,27 +27,18 @@ Book.init({
   pages: {
     type: DataTypes.INTEGER,
     allowNull: false
-  },
-  categories_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references:{
-        model: 'categories',
-        key: 'id'
-    }
-  },
-  publishers_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references:{
-        model: 'publishers',
-        key: 'id'
-    }
   }
 }, {
   sequelize: db,
   tableName: 'books',
   modelName: 'Book'
 });
+
+Publisher.hasMany(Book);
+Book.belongsTo(Publisher);
+
+Categorie.hasMany(Book);
+Book.belongsTo(Categorie);
+
 Book.sync()
 module.exports = Book;

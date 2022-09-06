@@ -1,51 +1,19 @@
 const { Op } = require('sequelize');
-const UserModel = require('../models/User');
+const CityModel = require('../models/City');
+const StateModel = require('../models/State');
+
 
 class UsersController {
 
   index = async (req, res, next) => {
-    const params = req.query;
-    const limit = params.limit || 100;
-    const page = params.page || 1;
-    const offset = (page - 1) * limit;
-    const sort = params.sort || 'id';
-    const order = params.order || 'ASC';
-    const where = {};
+    
 
-    if (params.name) {
-      where.name = {
-        [Op.iLike]: `%${params.name}%`
-      };
-    }
-
-    if (params.email) {
-      where.email = {
-        [Op.iLike]: `%${params.email}%`
-      };
-    }
-
-    if (params.min_age) {
-      where.age = {
-        [Op.gte]: params.min_age
-      };
-    }
-
-    if (params.max_age) {
-      if (! where.age) {
-        where.age = {};
-      }
-      where.age[Op.lte] = params.max_age;
-    }
-
-    if (params.sex) {
-      where.sex = params.sex;
-    }
-
-    const users = await UserModel.findAll({
-      where: where,
-      limit: limit,
-      offset: offset,
-      order: [ [sort, order] ]
+    const users = await CityModelModel.findAll({
+      include:[{
+        model: StateModel,
+        required: false,
+        attributes: ['name', 'province']
+      }]
     });
     res.json(users);
   }
