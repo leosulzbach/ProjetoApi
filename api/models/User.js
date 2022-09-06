@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize');
-const db = require('../db');
+const db = require('../../../cadastroUsuarios/api/db/conexao');
 
 class User extends Model { };
 
@@ -26,10 +26,16 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false
   }
+  ,
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
 }, {
   sequelize: db,
   tableName: 'users',
   modelName: 'User'
 });
+User.sync()
 
 module.exports = User;
