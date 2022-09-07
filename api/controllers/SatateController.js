@@ -42,7 +42,7 @@ class StateController {
   delete = async (req, res, next) => {
     await StateModel.destroy({
       where: {
-        id: req.params.userId
+        id: req.params.stateId
       }
     });
     res.json({});

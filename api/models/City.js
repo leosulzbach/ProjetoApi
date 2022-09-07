@@ -1,10 +1,10 @@
-const { STRING } = require('sequelize');
 const { DataTypes, Model} = require('sequelize');
 const db = require('../db/conexao');
+const State = require('./State');
 
-class Cities extends Model { };
+class City extends Model { };
 
-Cities.init({
+City.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -14,20 +14,15 @@ Cities.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  state_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references:{
-        model: 'states',
-        key: 'id'
-    }
   }
 }, {
   sequelize: db,
   tableName: 'cities',
-  modelName: 'Citie'
+  modelName: 'City'
 });
 
-Cities.sync()
-module.exports = Cities;
+State.hasMany(City);
+City.belongsTo(State);
+
+City.sync()
+module.exports = City;

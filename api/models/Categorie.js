@@ -1,9 +1,9 @@
 const { DataTypes, Model, Sequelize } = require('sequelize');
 const db = require('../db/conexao');
 
-class Categories extends Model { };
+class Categorie extends Model { };
 
-Categories.init({
+Categorie.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -14,15 +14,15 @@ Categories.init({
     type: DataTypes.STRING,
     allowNull: false
   
-  },
+  }
 },
 {
   sequelize: db,
   tableName: 'categories',
-  modelName: 'categories'
+  modelName: 'Categorie'
   }
 
 );
-Categories.sync()
+Categorie.sync()
 
-module.exports = Categories;
+module.exports = Categorie;

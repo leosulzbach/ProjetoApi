@@ -1,9 +1,9 @@
 const { DataTypes, Model} = require('sequelize');
 const db = require('../db/conexao');
 
-class States extends Model { };
+class State extends Model { };
 
-States.init({
+State.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -22,8 +22,8 @@ States.init({
 }, {
   sequelize: db,
   tableName: 'states',
-  modelName: 'States'
+  modelName: 'State'
 });
 
-States.sync()
-module.exports = States;
+State.sync()
+module.exports = State;

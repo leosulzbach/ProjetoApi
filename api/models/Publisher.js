@@ -14,14 +14,6 @@ Publisher.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  cities_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references:{
-        model: 'cities',
-        key: 'id'
-    }
   }
 }, {
   sequelize: db,

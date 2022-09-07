@@ -3,12 +3,10 @@ const CityModel = require('../models/City');
 const StateModel = require('../models/State');
 
 
-class UsersController {
+class CityController {
 
   index = async (req, res, next) => {
-    
-
-    const users = await CityModelModel.findAll({
+    const users = await CityModel.findAll({
       include:[{
         model: StateModel,
         required: false,
@@ -21,45 +19,45 @@ class UsersController {
   create = async (req, res, next) => {
     try {
       const data = await this._validateData(req.body);
-      const user = await UserModel.create(data);
-      res.json(user);
+      const city = await CityModel.create(data);
+      res.json(city);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
   show = async (req, res, next) => {
-    const user = await UserModel.findByPk(req.params.userId);
-    res.json(user);
+    const city = await CityModel.findByPk(req.params.cityId);
+    res.json(city);
   }
 
   update = async (req, res, next) => {
     try {
-      const id = req.params.userId;
+      const id = req.params.cityId;
       const data = await this._validateData(req.body, id);
-      await UserModel.update(data, {
+      await CityModel.update(data, {
         where: {
           id: id
         }
       });
-      res.json(await UserModel.findByPk(id));
+      res.json(await CityModel.findByPk(id));
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   }
 
   delete = async (req, res, next) => {
-    await UserModel.destroy({
+    await CityModel.destroy({
       where: {
-        id: req.params.userId
+        id: req.params.cityId
       }
     });
     res.json({});
   }
 
   _validateData = async (data, id) => {
-    const attributes = ['name', 'age', 'sex', 'email'];
-    const user = {};
+    const attributes = ['name', 'statesId'];
+    const city = {};
     for (const attribute of attributes) {
       if (! data[attribute]){
         throw new Error(`The attribute "${attribute}" is required.`);
@@ -67,23 +65,22 @@ class UsersController {
       user[attribute] = data[attribute];
     }
 
-    if (await this._checkIfEmailExists(user.email, id)) {
-      throw new Error(`The user with mail address "${user.email}" already exists.`);
+    if (await this._checkIfNameIdExists(city.name, id)) {
+      throw new Error(`The city with this name "${city.name}" already exists.`);
     }
-
     return user;
   }
 
-  _checkIfEmailExists = async (email, id) => {
+  _checkIfNameExists = async (name, id) => {
     const where = {
-      email: email
+      name: name
     };
 
     if (id) {
       where.id = { [Op.ne]: id }; // WHERE id != id
     }
 
-    const count = await UserModel.count({
+    const count = await CityModel.count({
       where: where
     });
 
@@ -92,4 +89,4 @@ class UsersController {
 
 }
 
-module.exports = new UsersController();
+module.exports = new CityController();
