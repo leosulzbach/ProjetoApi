@@ -19,9 +19,9 @@
     <nav class="navbar navbar-dark bg-mynav">
         <div class="container-fluid">
             <a class="navbar-brand navbar-brand--black" href="users.html">Users</a>
+            <a class="navbar-brand navbar-brand--black" href="states.html">States</a>
             <a class="navbar-brand navbar-brand--black" href="cities.html">Cities</a>
             <a class="navbar-brand navbar-brand--black" href="categorie.html">Categories</a>
-            <a class="navbar-brand navbar-brand--black" href="publisher.html">Publisher</a>
             <a class="navbar-brand navbar-brand--black" href="book.html">Books</a>
         </div>
     </nav>
@@ -29,10 +29,10 @@
     <div class="container">
         <div class="d-flex bd-highlight mb-3">
             <div class="me-auto p-2 bd-highlight">
-                <h2>States
+                <h2>Categorie
             </div>
             <div class="p-2 bd-highlight">
-                <button type="button" class="btn btn-secondary" onclick="showStateCreateBox()">Create</button>
+                <button type="button" class="btn btn-secondary" onclick="showCategorieCreateBox()">Create</button>
             </div>
         </div>
 
@@ -41,8 +41,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Province</th>
+                        <th scope="col">Description</th>
                     </tr>
                 </thead>
                 <tbody id="mytable">
@@ -55,7 +54,7 @@
     </div>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="state.js"></script>
+    <script src="categorie.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"

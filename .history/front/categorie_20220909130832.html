@@ -18,21 +18,17 @@
 
     <nav class="navbar navbar-dark bg-mynav">
         <div class="container-fluid">
-            <a class="navbar-brand navbar-brand--black" href="users.html">Users</a>
-            <a class="navbar-brand navbar-brand--black" href="cities.html">Cities</a>
-            <a class="navbar-brand navbar-brand--black" href="categorie.html">Categories</a>
-            <a class="navbar-brand navbar-brand--black" href="publisher.html">Publisher</a>
-            <a class="navbar-brand navbar-brand--black" href="book.html">Books</a>
+            <a class="navbar-brand navbar-brand--black" href="#">Categorie CRUD</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="d-flex bd-highlight mb-3">
             <div class="me-auto p-2 bd-highlight">
-                <h2>States
+                <h2>Categorie
             </div>
             <div class="p-2 bd-highlight">
-                <button type="button" class="btn btn-secondary" onclick="showStateCreateBox()">Create</button>
+                <button type="button" class="btn btn-secondary" onclick="showCategorieCreateBox()">Create</button>
             </div>
         </div>
 
@@ -41,8 +37,7 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Province</th>
+                        <th scope="col">Description</th>
                     </tr>
                 </thead>
                 <tbody id="mytable">

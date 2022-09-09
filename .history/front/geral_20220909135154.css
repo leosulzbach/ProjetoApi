@@ -1,5 +1,7 @@
 .bg-mynav {
   background-color: #521468;
+  display: inline-block;
+  text-align: left;
 }
 
 body {

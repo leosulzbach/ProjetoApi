@@ -1,5 +1,7 @@
 .bg-mynav {
   background-color: #521468;
+  display: flex;
+  align-content: space-between;
 }
 
 body {
