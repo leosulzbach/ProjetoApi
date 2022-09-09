@@ -1,64 +1,61 @@
 const ENDPOINT = "http://localhost:3000";
-
 const states = () => {
     return axios.get(`${ENDPOINT}/states`)
 }
 const loadTable = () => {
-    axios.get(`${ENDPOINT}/cities`)
+    axios.get(`${ENDPOINT}/city`)
         .then((response) => {
             if (response.status === 200) {
-                const dados = response.data;
-                console.log(dados)
+                const data = response.data;
                 var trHTML = '';
-                dados.forEach(function (element) {
+                data.forEach(element => {
                     trHTML += '<tr>';
                     trHTML += '<td>' + element.id + '</td>';
                     trHTML += '<td>' + element.name + '</td>';
-                    trHTML += '<td>' + element.State.name + '</td>';
-
+                    trHTML += '<td>' + element.State.province + '</td>';
                     trHTML += '<td><button type="button" class="btn btn-outline-secondary" onclick="showCityEditBox(' + element.id + ')">Edit</button>';
                     trHTML += '<button type="button" class="btn btn-outline-danger" onclick="cityDelete(' + element.id + ')">Del</button></td>';
                     trHTML += "</tr>";
                 });
                 document.getElementById("mytable").innerHTML = trHTML;
-
             }
         })
 };
 
 loadTable();
 
-const cityCreate = async () => {
+const cityCreate = () => {
     const name = document.getElementById("name").value;
-    const state_id = document.getElementById("select").value;
+    const state = document.getElementById("select").value;
 
-    axios.post(`${ENDPOINT}/cities`, {
+    axios.post(`${ENDPOINT}/city`, {
         name: name,
-        StateId: state_id
+        StateId: state
     })
         .then((response) => {
             Swal.fire(`City ${response.data.name} created`);
             loadTable();
         }, (error) => {
-            Swal.fire(`Error to create city: ${error.response.data.error} `)
+            Swal.fire(`Error to create City: ${error.response.data.error} `)
                 .then(() => {
-                    showCityCreateBox();
+                    showCitiesCreateBox();
                 })
         });
 }
 
 const getCity = (id) => {
-    return axios.get(`${ENDPOINT}/cities/` + id);
+    return axios.get(`${ENDPOINT}/city/` + id);
 }
 
-const cityEdit = () => {
+
+const citiesEdit = () => {
     const id = document.getElementById("id").value;
     const name = document.getElementById("name").value;
-    const state_id = document.getElementById("state").value;
+    const state = document.getElementById("select").value;
 
-    axios.put(`${ENDPOINT}/cities/` + id, {
+    axios.put(`${ENDPOINT}/city/` + id, {
         name: name,
-        stateId: state_id
+        StateId: state
     })
         .then((response) => {
             Swal.fire(`City ${response.data.name} updated`);
@@ -66,7 +63,7 @@ const cityEdit = () => {
         }, (error) => {
             Swal.fire(`Error to update city: ${error.response.data.error} `)
                 .then(() => {
-                    showCityCreateBox(id);
+                    showCityEditBox(id);
                 })
         });
 }
@@ -74,7 +71,7 @@ const cityEdit = () => {
 const cityDelete = async (id) => {
     const city = await getCity(id);
     const data = city.data;
-    axios.delete(`${ENDPOINT}/cities/` + id)
+    axios.delete(`${ENDPOINT}/city/` + id)
         .then((response) => {
             Swal.fire(`City ${data.name} deleted`);
             loadTable();
@@ -84,7 +81,27 @@ const cityDelete = async (id) => {
         });
 };
 
-const showCityCreateBox = async () => {
+
+const showCityEditBox = async (id) => {
+    const data = await getCity(id);
+
+    const select = await createStatesCombo()
+    Swal.fire({
+        title: 'Edit City',
+        html:
+            '<input id="id" type="hidden" value=' + id + '>' +
+            '<input id="name" class="swal2-input" placeholder="Name" value="' + data.name + '">' +
+            select,
+        focusConfirm: false,
+        showCancelButton: true,
+        preConfirm: () => {
+            citiesEdit();
+        }
+    });
+
+}
+
+const showCitiesCreateBox = async () => {
     const select = await createStatesCombo()
     Swal.fire({
 
@@ -113,7 +130,6 @@ const createStatesCombo = async (id) => {
         } else {
             select += `<option value= "${item.id}">${item.name}</option>`
         }
-
     })
     select += '</select>'
     return select;

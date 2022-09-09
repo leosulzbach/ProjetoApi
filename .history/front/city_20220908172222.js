@@ -84,13 +84,13 @@ const cityDelete = async (id) => {
 
 const showCityEditBox = async (id) => {
     const data = await getCity(id);
-
+    console.log(id);
     const select = await createStatesCombo()
     Swal.fire({
         title: 'Edit City',
         html:
-            '<input id="id" type="hidden" value=' + id + '>' +
-            '<input id="name" class="swal2-input" placeholder="Name">' +
+            '<input id="id" type="hidden" value=' + data.id + '>' +
+            '<input id="name" class="swal2-input" placeholder="Name" value="' + data.name + '">' +
             select,
         focusConfirm: false,
         showCancelButton: true,
