@@ -1,0 +1,19 @@
+.bg-mynav {
+  background-image: linear-gradient(to bottom, rgb(162, 44, 148), rgb(34, 10, 36));
+  box-shadow: 0px 10px 10px black;
+}
+
+body {
+  color: whitesmoke;
+  font-size: 1.25rem;
+  background-image: linear-gradient(to bottom, rgb(162, 44, 148), rgb(34, 10, 36));
+}
+
+td {
+  color: whitesmoke;
+  line-height: 3rem;
+}
+th {
+  color: whitesmoke;
+}
+
