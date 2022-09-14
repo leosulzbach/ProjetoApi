@@ -45,7 +45,6 @@ const booksCreate = () => {
     const author = document.getElementById("author").value;
     const pages = document.getElementById("pages").value;
     const publication_year = document.getElementById("publication_year").value;
-    const value = document.getElementById("value").value;
     const categorie = document.getElementById("select").value;
     const publisher = document.getElementById("select2").value;
     const format = document.getElementById("select3").value;
@@ -57,8 +56,7 @@ const booksCreate = () => {
         pages: pages,
         CategorieId: categorie,
         PublisherId: publisher,
-        FormatId: format,
-        value: value
+        FormatId: format
     })
         .then((response) => {
             Swal.fire(`book ${response.data.title} created`);
