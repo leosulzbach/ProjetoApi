@@ -119,7 +119,7 @@ const showUserEditBox = async (id) => {
             '<input id="age" class="swal2-input" placeholder="Age" value="' + data.age + '">' +
             '<input id="sex" class="swal2-input" placeholder="Sex" value="' + data.sex + '">' +
             '<input id="email" class="swal2-input" placeholder="Email" value="' + data.email + '">'+
-            '<input id="passwprd" type="password" class="swal2-input" placeholder="Password" value="' + data.password + '">',
+            '<input id="passwprd" class="swal2-input" placeholder="Password" value="' + data.password + '">',
         focusConfirm: false,
         showCancelButton: true,
         preConfirm: () => {
