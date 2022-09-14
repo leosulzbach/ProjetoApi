@@ -8,7 +8,7 @@ const fazerLogin = async () => {
     console.log(senha);
     if (user) {
         if (user.data[0].password === senha) {
-            window.location.href = "users.html";
+            window.location.href = "book.html";
         }else {
             Swal.fire(`Login inválido`);
         }
